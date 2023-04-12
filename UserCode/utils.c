@@ -9,10 +9,18 @@
 
 motor_t mInstance;
 
+/**
+ * @brief 串口重定向
+ * @param character 输出字符
+ */
 void _putchar(char character) {
     HAL_UART_Transmit(&huart1, (uint8_t * ) & character, 1, HAL_MAX_DELAY);
 }
 
+/**
+ * @brief 定时器中断回调
+ * @param htim 定时器句柄
+ */
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
     if (htim == &htim11) {
         // Speed Calculate
@@ -41,6 +49,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
                          (uint32_t)(fabsf(pidOut) * (TIM1->ARR - 1.0f)) : TIM1->ARR - 1;
         }
 
+        // LED control
         Pid_t *tempPID = mInstance.menuSelect == Position ? &mInstance.pPID : &mInstance.mPID;
         if (fabsf(tempPID->ctr.aim - tempPID->ctr.cur) / fabsf(tempPID->ctr.aim) < 0.05f) {
             HAL_GPIO_WritePin(LED_G_GPIO_Port, LED_G_Pin, 1);

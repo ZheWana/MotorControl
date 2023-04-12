@@ -7,28 +7,29 @@
 #include "CommonKey/comKey.h"
 #include "utils.h"
 
+/**
+ * @brief 渲染器Menu面板参数定义
+ */
 float MenuItem_y_w[2][2] = {
         0, 5 * 15,
         23, 8 * 15,
 };
+
+/**
+ * @brief 渲染器Speed面板参数定义
+ */
 float SpeedItem_y_w[2][2] = {
         0, 3 * 10,
         13, 4 * 10,
 };
+
+/**
+ * @brief 渲染器Position面板参数定义
+ */
 float PositionItem_y_w[2][2] = {
         0, 3 * 10,
         13, 4 * 10,
 };
-
-
-void ComKey_FirstLongTriggerCallback(comkey_t *key) {
-}
-
-void ComKey_LongHoldCallback(comkey_t *key) {
-}
-
-void ComKey_KeyReleaseCallback(comkey_t *key) {
-}
 
 void ComKey_HoldTriggerCallback(comkey_t *key) {
     if (mInstance.menuSelect == Speed) {

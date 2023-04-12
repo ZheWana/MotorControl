@@ -13,7 +13,12 @@
 #include "main.h"
 #include "math.h"
 
-// PID实现函数
+/**
+ * @brief PID实现函数
+ * @param pid PID句柄
+ * @param input PID输入量
+ * @return float PID控制器输出
+ */
 float PID_Realize(Pid_t *pid, float input) {
     pid->ctr.cur = input;
 
@@ -26,6 +31,12 @@ float PID_Realize(Pid_t *pid, float input) {
     return pid->kp * pid->error.cur + pid->ki * pid->error.sum + pid->kd * pid->error.bia;
 }
 
+/**
+ * @brief PID角度闭环的特殊实现
+ * @param pid PID句柄
+ * @param input PID输入量
+ * @return float PID控制器输出
+ */
 float PID_RealizeForAngle(Pid_t *pid, float input) {
     pid->ctr.cur = input;
 
@@ -45,13 +56,23 @@ float PID_RealizeForAngle(Pid_t *pid, float input) {
     return pid->kp * pid->error.cur + pid->ki * pid->error.sum + pid->kd * pid->error.bia;
 }
 
-// PID初始化函数
+/**
+ * @brief PID初始化
+ * @param pid PID句柄
+ * @param kp 比例参数
+ * @param ki 积分参数
+ * @param kd 微分参数
+ */
 void PID_Init(Pid_t *pid, float kp, float ki, float kd) {
     pid->kp = kp;
     pid->ki = ki;
     pid->kd = kd;
 }
 
+/**
+ * @brief PID内部运算量重置
+ * @param pid PID句柄
+ */
 void PID_Reset(Pid_t *pid) {
     pid->ctr.cur = 0;
     pid->ctr.pre = 0;
@@ -61,6 +82,11 @@ void PID_Reset(Pid_t *pid) {
     pid->error.sum = 0;
 }
 
+/**
+ * @brief 设定PID目标值
+ * @param pid PID句柄
+ * @param aim PID目标值
+ */
 void PID_SetAim(Pid_t *pid, float aim) {
     pid->ctr.aim = aim;
 }
